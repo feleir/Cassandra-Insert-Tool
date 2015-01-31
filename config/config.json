@@ -4,14 +4,13 @@
 		"keyspace": "demo"
 	},
     "Table": "timeline",
-	"Schema": { 
+    "Schema": { 
     	"day": { "values": ["20150129","2015030"] },
     	"hour": { "feature": "Helpers", "type": "randomNumber", "parameters": [23] },
     	"min": { "feature": "Helpers", "type": "randomNumber", "parameters": [59] },
-        "insertiontime": { "feature": "Date", "type": "recent", "parameters": [1] },
-        "epgstarttime": { "feature": "Date", "type": "future", "parameters": [4] },
-    	"endtime": { "feature": "Date", "type": "future", "parameters": [5] },
-    	"stationid": { "values": ["station1", "station2", "station3", "station4"] },
+        "recenttime": { "feature": "Date", "type": "recent", "parameters": [1] },
+        "futuretime": { "feature": "Date", "type": "future", "parameters": [4] },
+    	"multiplevalues": { "values": ["value1", "value2", "value3", "value4"] },
         "id": { "feature": "Cassandra", "type": "uuid" }
     }
 }
