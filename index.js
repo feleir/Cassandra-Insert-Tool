@@ -10,7 +10,7 @@ var config = require('./config/config.json'),
 	cassandraConfig = config.CassandraConfig,
 	schema = config.Schema,
 	tableName = config.Table,
-    client = new cassandra.Client(cassandraConfig);
+	client = new cassandra.Client(cassandraConfig);
 
 function GenerateValue(valueConfig) {
 	var generatedValue,

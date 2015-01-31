@@ -29,7 +29,7 @@ Possible options:
 		
 		* Other options can be check in https://github.com/Marak/faker.js
 
-The sample config.json generates ros for the following table:
+The sample config.json generates rows for the following table:
 
 CREATE TABLE demo.timeline (
     day text,
