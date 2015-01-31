@@ -2,17 +2,17 @@ Cassandra bulk insert tool.
 
 Generates as much data as required to test schemas/queries against a cassandra database.
 
-Usage:
+## Usage:
 	node.js index.js <number of rows to insert>
 
-Configuration:
+## Configuration:
 	Configuration is taken for the config/config.json file.
 
-	CassandraConfig, check https://github.com/datastax/nodejs-driver for the possible values to initialize the cassandra client.
+	### CassandraConfig, check https://github.com/datastax/nodejs-driver for the possible values to initialize the cassandra client.
 
-	Table, name of the table to insert all the generated rows.
+	### Table, name of the table to insert all the generated rows.
 
-	Schema: object which contains all the schema columns and possible values to generated for them.
+	### Schema: object which contains all the schema columns and possible values to generated for them.
 
 		Possible options: 
 
