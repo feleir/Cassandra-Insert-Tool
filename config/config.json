@@ -8,9 +8,9 @@
     	"day": { "values": ["20150129","2015030"] },
     	"hour": { "feature": "Helpers", "type": "randomNumber", "parameters": [23] },
     	"min": { "feature": "Helpers", "type": "randomNumber", "parameters": [59] },
+        "id": { "feature": "Cassandra", "type": "uuid" },
         "recenttime": { "feature": "Date", "type": "recent", "parameters": [1] },
         "futuretime": { "feature": "Date", "type": "future", "parameters": [4] },
-    	"multiplevalues": { "values": ["value1", "value2", "value3", "value4"] },
-        "id": { "feature": "Cassandra", "type": "uuid" }
+    	"multiplevalues": { "values": ["value1", "value2", "value3", "value4"] }
     }
 }

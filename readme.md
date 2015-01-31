@@ -28,3 +28,16 @@ Possible options:
 			"test": { "feature": "Cassandra", "type": "timeuuid" } //generates a timeuuid for the column test. 
 		
 		* Other options can be check in https://github.com/Marak/faker.js
+
+The sample config.json generates ros for the following table:
+
+CREATE TABLE demo.timeline (
+    day text,
+    hour int,
+    min int,
+    id uuid,
+    recenttime timestamp,
+    futuretime timestamp,
+    multiplevalues text,
+    PRIMARY KEY (day, hour, min, id)
+);

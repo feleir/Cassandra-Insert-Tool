@@ -21,7 +21,7 @@ function GenerateValue(valueConfig) {
 	} else if (valueConfig.values) {
 		generatedValue = valueConfig.values[Math.floor(Math.random()*valueConfig.values.length)];
 	} else if (valueConfig.feature == 'Cassandra') { 
-		generatedValue = cassandra.types[valueConfig.type]();
+		return cassandra.types[valueConfig.type]();
 	} else if (Faker[valueConfig.feature] && (func = Faker[valueConfig.feature][valueConfig.type])) {
 		generatedValue = func.apply(this,valueConfig.parameters);
 	} else {
@@ -29,8 +29,7 @@ function GenerateValue(valueConfig) {
 		process.exit(0);
 	}
 
-	var type = typeof generatedValue;
-	if (type === 'number') {
+	if (typeof generatedValue === 'number') {
 		return generatedValue;
 	} else {
 		var date = Date.parse(generatedValue);
@@ -43,20 +42,18 @@ function GenerateValue(valueConfig) {
 }
 
 function InsertRandomRow(callback) {
-	var data = "",
-		values = "",
-		cql = "INSERT INTO " + tableName + " (";
-	for (var key in schema) {
-		if (values != "") {
-			values += ", ";
-			data += ", ";
-		}
-		values += key;
+	var values = [],
+		columns = [];
 
-		data += GenerateValue(schema[key]);
+	for (var key in schema) {
+		columns.push(key);
+		values.push(GenerateValue(schema[key]));
 	}
 
-	cql += values + ") VALUES (" + data + ")";
+	var cql = "INSERT INTO " + tableName +
+		" (" + columns.join(",") + ") VALUES (" + 
+	 	values.join(",") + ")";
+
 	client.execute(cql, [], function (err, result) {
 		callback(err, result);
 	});
@@ -76,6 +73,11 @@ for(var i=0;i<items;i++) {
 
 async.series(tasks, function(err, result) {
 	var elapsedMs = new Date() - startDate;
-	console.log(result.length + ' rows sucessfully inserted in ' + elapsedMs + ' ms.');
+	if (err) {
+		console.log(err);
+	}
+	if (result.length && result[0]) {
+		console.log(result.length + ' rows sucessfully inserted in ' + elapsedMs + ' ms.');
+	}
 	process.exit();
 });	
