@@ -10,7 +10,7 @@ Configuration is taken for the config/config.json file.
 
 CassandraConfig, check https://github.com/datastax/nodejs-driver for the possible values to initialize the cassandra client.
 
-Table, name of the table to insert all the generated rows.
+Tables, array of tables to insert the generated rows, both tables have to share the same columns but can have different indexes.
 
 Schema: object which contains all the schema columns and possible values to generated for them.
 
@@ -29,7 +29,7 @@ Possible options:
 		
 		* Other options can be check in https://github.com/Marak/faker.js
 
-The sample config.json generates rows for the following table:
+The sample config.json generates rows for the following tables:
 
 CREATE TABLE demo.timeline (
     day text,
@@ -40,4 +40,15 @@ CREATE TABLE demo.timeline (
     futuretime timestamp,
     multiplevalues text,
     PRIMARY KEY (day, hour, min, id)
+);
+
+CREATE TABLE demo.timelinebyrecenttime (
+    day text,
+    hour int,
+    min int,
+    id uuid,
+    recenttime timestamp,
+    futuretime timestamp,
+    multiplevalues text,
+    PRIMARY KEY (day, hour, min, recenttime)
 );

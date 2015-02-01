@@ -9,7 +9,7 @@ var fs = require('fs'),
 var config = require('./config/config.json'),
 	cassandraConfig = config.CassandraConfig,
 	schema = config.Schema,
-	tableName = config.Table,
+	tables = config.Tables,
 	client = new cassandra.Client(cassandraConfig);
 
 function GenerateValue(valueConfig) {
@@ -43,19 +43,26 @@ function GenerateValue(valueConfig) {
 
 function InsertRandomRow(callback) {
 	var values = [],
-		columns = [];
+		columns = [],
+		queries =[];
 
 	for (var key in schema) {
 		columns.push(key);
 		values.push(GenerateValue(schema[key]));
 	}
 
-	var cql = "INSERT INTO " + tableName +
-		" (" + columns.join(",") + ") VALUES (" + 
-	 	values.join(",") + ")";
+	tables.forEach(function(table) {
+		var cql = "INSERT INTO " + table +
+			" (" + columns.join(",") + ") VALUES (" + 
+		 	values.join(",") + ")";
+		queries.push({
+		    query: cql,
+		    params: []
+		});
+	});
 
-	client.execute(cql, [], function (err, result) {
-		callback(err, result);
+	client.batch(queries, {}, function(err) {
+		callback(err);
 	});
 }
 
@@ -71,13 +78,12 @@ for(var i=0;i<items;i++) {
 	});
 }
 
-async.series(tasks, function(err, result) {
+async.series(tasks, function(err) {
 	var elapsedMs = new Date() - startDate;
 	if (err) {
 		console.log(err);
-	}
-	if (result.length && result[0]) {
-		console.log(result.length + ' rows sucessfully inserted in ' + elapsedMs + ' ms.');
+	} else {
+		console.log(items + ' rows sucessfully inserted in ' + elapsedMs + ' ms.');		
 	}
 	process.exit();
 });	

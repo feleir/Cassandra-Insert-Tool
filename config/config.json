@@ -3,7 +3,7 @@
 		"contactPoints": ["127.0.0.1"],
 		"keyspace": "demo"
 	},
-    "Table": "timeline",
+    "Tables": ["timeline", "timelinebyrecenttime"],
     "Schema": { 
     	"day": { "values": ["20150129","2015030"] },
     	"hour": { "feature": "Helpers", "type": "randomNumber", "parameters": [23] },
