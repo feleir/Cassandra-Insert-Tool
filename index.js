@@ -44,7 +44,7 @@ function GenerateValue(valueConfig) {
 function InsertRandomRow(callback) {
 	var values = [],
 		columns = [],
-		queries =[];
+		batchcql = 'BEGIN UNLOGGED BATCH';
 
 	for (var key in schema) {
 		columns.push(key);
@@ -52,16 +52,14 @@ function InsertRandomRow(callback) {
 	}
 
 	tables.forEach(function(table) {
-		var cql = "INSERT INTO " + table +
+		var cql = " INSERT INTO " + table +
 			" (" + columns.join(",") + ") VALUES (" + 
 		 	values.join(",") + ")";
-		queries.push({
-		    query: cql,
-		    params: []
-		});
+		batchcql += cql;
 	});
-
-	client.batch(queries, {}, function(err) {
+	batchcql += ' APPLY BATCH';
+	
+	client.execute(batchcql,[], function(err, result) {
 		callback(err);
 	});
 }
