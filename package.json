@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "faker": "^2.1.2"
+    "faker": "^2.1.2",
     "async": "^0.9.0",
     "cassandra-driver": "^1.0.3"
   }
