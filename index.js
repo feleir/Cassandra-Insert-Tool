@@ -4,7 +4,7 @@ var fs = require('fs'),
 	cassandra = require('cassandra-driver'),
 	async = require('async'),
 	items = 1,
-	Faker = require('Faker');
+	Faker = require('faker');
 
 var config = require('./config/config.json'),
 	cassandraConfig = config.CassandraConfig,
