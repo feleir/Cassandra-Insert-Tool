@@ -27,7 +27,8 @@ Possible options:
 			"test": { "feature": "Cassandra", "type": "uuid" } // generates an uui for the column test.
 			"test": { "feature": "Cassandra", "type": "timeuuid" } //generates a timeuuid for the column test. 
 		
-		* Other options can be check in https://github.com/Marak/faker.js
+		
+Other options can be check in https://github.com/Marak/faker.js
 
 The sample config.json generates rows for the following tables:
 
